@@ -117,17 +117,23 @@ class TicketDetailView(generics.ListAPIView):
         user_id = request.data.get('user', None)
         user_exists = User.objects.filter(pk=user_id).exists()
         event_exists = Event.objects.filter(pk=event_id).exists()
+
         if not user_exists:
             return Response({"error": f"There is no user with {str(user_id)}"})
         if not event_exists:
             return Response({"error": f"There is no event with {str(event_id)}"})
+
         purchase_date_str = request.data.get("purchase_date", None)
-        purchase_date = datetime.strptime(purchase_date_str, "%Y-%m-%d").date() if purchase_date_str else None
-        purchase_date_str = request.data.get("purchase_date", None)
-        purchase_date = datetime.strptime(purchase_date_str, "%Y-%m-%d").date() if purchase_date_str else None
+        if purchase_date_str:
+            purchase_date = datetime.strptime(purchase_date_str, "%Y-%m-%d").date()
+        else:
+            purchase_date = datetime.now().date()
+
         event = Event.objects.filter(pk=event_id).first()
-        if event and purchase_date and purchase_date > event.date:
-            return Response({"error": "ticket purchase time has expired"})
+
+        if purchase_date > event.date:
+            return Response({"error": "Ticket purchase time has expired"})
+
         serializer = TicketSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

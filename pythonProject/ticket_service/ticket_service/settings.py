@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'ticket_service.wsgi.application'
 DATABASES = {
     'default':{
         'ENGINE':'mssql',                    # Must be "mssql"
-        'NAME':'DJANGO_TicketService',                       # DB name
+        'NAME':'DJANGO_TicketService1',                       # DB name
         'HOST':'LENOVO-15ACH6\SQLEXPRESS1', # <server>\<instance>
         'PORT':'',
         'OPTIONS': {

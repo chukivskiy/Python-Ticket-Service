@@ -21,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ('id', 'name', 'date', 'location')
+        fields = ('id', 'name', 'date', 'location', 'price')
 
 
     def create(self, validated_data):
@@ -31,13 +31,14 @@ class EventSerializer(serializers.ModelSerializer):
         instance.name = validated_data.get('name', instance.name)
         instance.date = validated_data.get('date', instance.date)
         instance.location = validated_data.get('location', instance.location)
+        instance.price = validated_data.get('price', instance.price)
         instance.save()
         return instance
 
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
-        fields = ('id', 'user', 'event', 'purchase_date', 'price')
+        fields = ('id', 'user', 'event', 'purchase_date')
 
     def create(self, validated_data):
         return Ticket.objects.create(**validated_data)
@@ -46,6 +47,6 @@ class TicketSerializer(serializers.ModelSerializer):
         instance.user = validated_data.get('user', instance.user)
         instance.event = validated_data.get('event', instance.event)
         instance.purchase_date = validated_data.get('purchase_date', instance.purchase_date)
-        instance.price = validated_data.get('price', instance.price)
+
         instance.save()
         return instance
