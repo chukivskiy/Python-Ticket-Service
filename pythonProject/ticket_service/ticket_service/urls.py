@@ -17,13 +17,27 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from ticketapp.views import UserDetailView, TicketDetailView, EventDetailView
+from ticketapp.views import UserDetailView, UserSetView, EventSetView, TicketDetailView, EventDetailView, TicketSetView
+from django.contrib import admin
+from django.urls import path, re_path, include
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Ticket Service",
+        default_version='v1',
+        description="Your API description",
+    ),
+    public=True,
+)
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/user/', UserDetailView.as_view()),
+    path('api/user/', UserSetView.as_view()),
     path('api/user/<int:pk>/', UserDetailView.as_view()),
-    path('api/ticket/', TicketDetailView.as_view()),
+    path('api/ticket/', TicketSetView.as_view()),
     path('api/ticket/<int:pk>/', TicketDetailView.as_view()),
-    path('api/event/', EventDetailView.as_view()),
+    path('api/event/', EventSetView.as_view()),
     path('api/event/<int:pk>/', EventDetailView.as_view()),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]

@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ticketapp.apps.TicketappConfig',
-    'rest_framework'
+    'rest_framework',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -84,7 +85,7 @@ WSGI_APPLICATION = 'ticket_service.wsgi.application'
 DATABASES = {
     'default':{
         'ENGINE':'mssql',                    # Must be "mssql"
-        'NAME':'DJANGO_TicketService1',                       # DB name
+        'NAME':'DJANGO_TicketService2',                       # DB name
         'HOST':'LENOVO-15ACH6\SQLEXPRESS1', # <server>\<instance>
         'PORT':'',
         'OPTIONS': {

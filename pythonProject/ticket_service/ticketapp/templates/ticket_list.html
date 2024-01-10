@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ticket List</title>
+</head>
+<body>
+    <h1>Ticket List</h1>
+    <ul>
+        {% for ticket in ticket_list %}
+            <li>
+                <strong>User:</strong> {{ ticket.user.username }},
+                <strong>Event:</strong> {{ ticket.event.name }},
+                <strong>Purchase Date:</strong> {{ ticket.purchase_date }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

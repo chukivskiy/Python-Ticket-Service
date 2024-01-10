@@ -1,6 +1,6 @@
 # serializers.py
 from rest_framework import serializers
-from .models import User, Event, Ticket
+from .models import Event, Ticket, User
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
